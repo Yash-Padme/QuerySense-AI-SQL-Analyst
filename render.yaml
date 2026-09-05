@@ -1,0 +1,24 @@
+services:
+  # FastAPI Backend
+  - type: web
+    name: ai-sql-analyst-backend
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:$PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        value: sqlite:///data/company.db
+      - key: PYTHONPATH
+        value: backend
+
+  # Next.js Frontend
+  - type: web
+    name: ai-sql-analyst-frontend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://ai-sql-analyst-backend.onrender.com # Replace with your actual backend Render URL
