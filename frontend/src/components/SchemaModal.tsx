@@ -184,12 +184,12 @@ export const SchemaModal = ({ isOpen, onClose }: SchemaModalProps) => {
           // const hasColMatch = node.data.columns?.some((c: Column) =>
           //   c.name.toLowerCase().includes(q)
           // )
-          // Cast node.data to any to prevent TypeScript from treating it as '{}'
+        // Cast node.data to any to prevent TypeScript from treating it as '{}'
         const nodeData = node.data as { columns?: Column[] }
         const hasColMatch = nodeData.columns?.some((c: Column) =>
           c.name.toLowerCase().includes(q)
         )
-          const isMatch = !q || tableName.includes(q) || hasColMatch
+          const isMatch = !q || tableName.includes(q) || Boolean(hasColMatch)
 
           return {
             ...node,
