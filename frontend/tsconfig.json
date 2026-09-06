@@ -29,7 +29,6 @@
         "./src/*"
       ]
     },
-    "ignoreDeprecations": "6.0",
     "allowJs": true,
     "noEmit": true,
     "incremental": true,
