@@ -158,7 +158,7 @@ export const Sidebar = ({
         {isSignedIn && user ? (
           <div className={styles.userCard}>
             {/* Clerk Avatar */}
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
 
             <div className={styles.userInfo}>
               <span className={styles.userName}>
