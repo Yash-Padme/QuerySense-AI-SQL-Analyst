@@ -26,7 +26,12 @@ app.add_middleware(
 @app.on_event("startup")
 def startup_event():
     if DATABASE_URL.startswith("sqlite:///"):
-        db_path = Path(DATABASE_URL[10:])
+        db_file_path = DATABASE_URL.replace("sqlite:////", "/").replace("sqlite:///", "")
+        db_path = Path(db_file_path).resolve()
+        
+        # Folder create karein agar nahi bana ho
+        db_path.parent.mkdir(parents=True, exist_ok=True)
+        
         if not db_path.exists():
             print(f"Database not found at {db_path}. Seeding initial data...")
             seed_database()
@@ -35,6 +40,8 @@ app.include_router(api_router, prefix="/api/v1")
 
 
 @app.get("/")
+@app.get("/api/v1")
+@app.get("/api/v1/")
 def read_root():
     return {"status": "online", "engine": "AI SQL Analyst Core v1.0.0"}
 
