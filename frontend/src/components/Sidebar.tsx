@@ -18,7 +18,7 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({
-  chatHistory,
+  chatHistory : _chatHistory,
   userSessions,
   onNewChat,
   onSelectChat,
